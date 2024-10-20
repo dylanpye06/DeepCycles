@@ -1,0 +1,117 @@
+﻿@model DeepCycles.Models.ViewModels.MakeABookingRequest
+@{
+}
+    @if(Model == null)
+    {
+        <div class="bg-secondary bg-opacity-25 py-2 fw-bold">
+            <div class="container">
+                <h1>Make A Booking</h1>
+                <p>All Boxes Must Be Completed In Order To Book Job</p>
+            </div>
+        </div>
+
+        <div class="container py-5">
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="FullName" asp-for="FullName" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" id="Email" asp-for="Email" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" asp-for="PhoneNumber" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Post Code</label>
+                    <input type="text" class="form-control" id="PostCode" asp-for="PostCode" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Booking Title</label>
+                    <p>(For Example Bike Make And Model + Brake Bleed)</p>
+                    <input type="text" class="form-control" id="BookingTitle" asp-for="BookingTitle" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Booking Description</label>
+                    <p>(Any Information Or Notes The Mechanic Should Be Aware Of)</p>
+                    <input type="text" class="form-control" id="BookingDescription" asp-for="BookingDescription" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Collection And Drop Off Charge</label>
+                    <p text-danger>This will be calculated once you submit your form</p>
+                <input type="text" class="form-control" id="CollectionAndDropOffCharge" asp-for="CollectionAndDropOffCharge" readonly/>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-success">Submit Job</button>
+
+                        <a class="btn btn-success ms-md-3 btn btn-danger" asp-area="" asp-controller="Home" asp-action="HomePage">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+
+    else
+    {
+    <div class="bg-secondary bg-opacity-25 py-2 fw-bold">
+        <div class="container">
+            <h1>Please Ensure All Boxes Are Filled Out Before You Make A Booking</h1>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <form method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="FullName" asp-for="FullName" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" id="Email" asp-for="Email" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber" asp-for="PhoneNumber" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Post Code</label>
+                <input type="text" class="form-control" id="PostCode" asp-for="PostCode" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Booking Title</label>
+                <p>(For Example Bike Make And Model + Brake Bleed)</p>
+                <input type="text" class="form-control" id="BookingTitle" asp-for="BookingTitle" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Booking Description</label>
+                <p>(Any Information Or Notes The Mechanic Should Be Aware Of)</p>
+                <input type="text" class="form-control" id="BookingDescription" asp-for="BookingDescription" />
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-success">Submit Job</button>
+
+                    <a class="btn btn-success ms-md-3 btn btn-danger" asp-area="" asp-controller="Home" asp-action="HomePage">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    }

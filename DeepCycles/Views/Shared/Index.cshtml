@@ -1,0 +1,30 @@
+﻿@model DeepCycles.Models.ViewModels.DistanceMatrixResult
+
+@{
+    ViewData["Title"] = "Distance Matrix";
+}
+
+<h1>Google Distance Matrix API</h1>
+
+<form method="post" asp-action="GetDistanceMatrix" asp-controller="DistanceMatrix">
+
+    <div class="form-group">
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin" class="form-control" placeholder="Enter starting location" required />
+    </div>
+
+    <div class="form-group">
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" class="form-control" placeholder="Enter destination" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Get Distance</button>
+</form>
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Distance) && !string.IsNullOrEmpty(Model.Duration))
+{
+    <hr />
+    <h2>Result:</h2>
+    <p><strong>Distance:</strong> @Model.Distance</p>
+    <p><strong>Duration:</strong> @Model.Duration</p>
+}

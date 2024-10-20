@@ -1,0 +1,66 @@
+﻿@model List<DeepCycles.Models.Domain.Booking>
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-25 py-2 fw-bold">
+    <div class="container">
+        <h1>View All Bookings</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Post Code</th>
+                    <th>BookingTitle</th>
+                    <th>BookingDescription</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.FullName</td>
+                        <td>@booking.Email</td>
+                        <td>@booking.PhoneNumber</td>
+                        <td>@booking.PostCode</td>
+                        <td>@booking.BookingTitle</td>
+                        <td>@booking.BookingDescription</td>
+                        <td>
+                            <form asp-action="DeleteBooking" method="post">
+                                <input type="hidden" name="BookingId" value="@booking.BookingId" />
+                                <button type="submit" class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Admin" asp-action="EditBookings"
+                               asp-route-id="@booking.BookingId">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p> No Bookings Found </p>
+    }
+</div>
+
+<div class="container py-5">
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="" asp-controller="Home" asp-action="HomePage">Exit</a>
+    </div>
+</div>
