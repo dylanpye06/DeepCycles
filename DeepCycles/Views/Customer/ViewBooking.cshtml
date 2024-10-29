@@ -23,6 +23,8 @@
                     <th>Booking Title</th>
                     <th>Booking Description</th>
                     <th>Collection And Drop Off Charge</th>
+                    <th>Collection Time</th>
+                    <th>Edit</th>
                     <th> </th>
                 </tr>
             </thead>
@@ -36,6 +38,7 @@
                     <td>@Model.BookingTitle</td>
                     <td>@Model.BookingDescription</td>
                     <td>@Model.CollectionAndDropOffCharge</td>
+                    <td>@Model.CollectionTime</td>
 
                     <td>
                         <a asp-area="" asp-controller="Customer" asp-action="EditBooking"
@@ -49,12 +52,12 @@
             <div class="d-flex">
                 <a class="btn btn-success" type="submit" asp-area="" asp-controller="Home" asp-action="HomePage">Submit</a>
 
-                <div asp-action="DeleteBooking" method="post" class="ms-2">
+                <form asp-action="DeleteBooking" method="post" class="ms-2">
                     <input type="hidden" name="BookingId" value="@Model.BookingId" />
                     <button type="submit" class="btn btn-danger">
                         Delete Booking
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     }

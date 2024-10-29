@@ -10,5 +10,6 @@
         public required string BookingTitle {  get; set; }
         public required string BookingDescription { get; set;}
         public string? CollectionAndDropOffCharge { get; set; }
+        public required string CollectionTime { get; set; }
     }
 }

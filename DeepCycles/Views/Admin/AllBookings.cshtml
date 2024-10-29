@@ -19,8 +19,9 @@
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Post Code</th>
-                    <th>BookingTitle</th>
-                    <th>BookingDescription</th>
+                    <th>Booking Title</th>
+                    <th>Booking Description</th>
+                    <th>Collection Time</th>
                     <th>Delete</th>
                     <th>Edit</th>
                     <th> </th>
@@ -36,6 +37,7 @@
                         <td>@booking.PostCode</td>
                         <td>@booking.BookingTitle</td>
                         <td>@booking.BookingDescription</td>
+                        <td>@booking.CollectionTime</td>
                         <td>
                             <form asp-action="DeleteBooking" method="post">
                                 <input type="hidden" name="BookingId" value="@booking.BookingId" />
@@ -61,6 +63,6 @@
 
 <div class="container py-5">
     <div class="mb-3">
-        <a class="btn btn-success" asp-area="" asp-controller="Home" asp-action="HomePage">Exit</a>
+        <a class="btn btn-success" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
     </div>
 </div>

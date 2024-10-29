@@ -9,12 +9,6 @@ namespace DeepCycles.Controllers
     public class CustomerController(ICustomerRepository customerRepository) : Controller
     {
         [HttpGet]
-        public IActionResult DistanceCalculator()
-        {
-            return View("DistanceCalculator");
-        }
-
-        [HttpGet]
         public IActionResult Map()
         {
             return View("Map");
@@ -35,14 +29,20 @@ namespace DeepCycles.Controllers
                 FullName = makeABookingRequest.FullName,
                 Email = makeABookingRequest.Email,
                 PhoneNumber = makeABookingRequest.PhoneNumber,
-                PostCode = makeABookingRequest.PostCode,
+                PostCode = makeABookingRequest.PostCode,// check post code distance has to be reasonable difference 
                 BookingTitle = makeABookingRequest.BookingTitle,
                 BookingDescription = makeABookingRequest.BookingDescription,
+                CollectionTime = makeABookingRequest.CollectionTime,
             };
             // TODO can we tidy up this code?
             if (booking.FullName != null && booking.Email != null
             && booking.PostCode != null && booking.BookingTitle != null && booking.BookingDescription != null)
+
+            // use tool given to check all boxes are valid https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0
+
             {
+                //caching - take look at Dictionary<string,string> for instance
+
                 var booking1 = await customerRepository.DistanceMatrixResult(booking);
                 await customerRepository.MakeABooking(booking1);
                 return RedirectToAction("ViewBooking", booking1);
@@ -75,6 +75,7 @@ namespace DeepCycles.Controllers
                     PostCode = booking.PostCode,
                     BookingTitle = booking.BookingTitle,
                     BookingDescription = booking.BookingDescription,
+                    CollectionTime = booking.CollectionTime,
                 };
                 return View(editBookingRequest);
             }
@@ -97,6 +98,7 @@ namespace DeepCycles.Controllers
                 PostCode = editBookingRequest.PostCode,
                 BookingTitle = editBookingRequest.BookingTitle,
                 BookingDescription = editBookingRequest.BookingDescription,
+                CollectionTime = editBookingRequest.CollectionTime
             };
             await customerRepository.EditBooking(booking);
             return RedirectToAction("ViewBooking", booking);
@@ -109,7 +111,6 @@ namespace DeepCycles.Controllers
             return View("HomePage");
 
             // show success message
-
         }
 
         [HttpPost]
@@ -119,7 +120,31 @@ namespace DeepCycles.Controllers
             return View("HomePage");
 
             // show success message
+        }
 
+        [HttpGet]
+        public IActionResult HandmadeBikes()
+        {
+            return View("AllBikes");
+
+           // we need a new table i the databse where gabriel can upload his owen bikes to the datasbaase and then this view must display all names of the bike E.G- Enduro 29er medium
+           // and then ech one has a link that opens another view with then shows all information and pictures
+        }
+
+        [HttpPost]
+        public IActionResult HandmadeBikes(HandmadeBikes handmadeBikes)
+        {
+            return View("AllBikes");
+
+            // we need to put the whole bike databsase table into a list which cn be accessed from the view / method
+
+            // each link with represent a single Id in the list of bikes
+
+            // in the next View we will write something like 
+
+            // foreach(bike in list)
+                
+                // dispay this...........
         }
     }
 }

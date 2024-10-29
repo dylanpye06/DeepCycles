@@ -70,7 +70,8 @@ namespace DeepCycles.Repository
             return null;
         }
 
-        public async Task<Booking> DistanceMatrixResult(Booking booking)  //string origin, string destination
+        public async Task<Booking> DistanceMatrixResult(Booking booking)
+     //         public async Task<int> DistanceMatrixResult(string shopPostcode, string customerPostcode )
         {
             var origin = "LL573BJ";
             var destination = booking.PostCode;
@@ -93,10 +94,13 @@ namespace DeepCycles.Repository
                         result.Duration = element["duration"]["text"].ToString();
                     }
                 }
+                // map to a concrte type deserilaize https://www.newtonsoft.com/json/help/html/deserializeobject.htm
             }
             string firstTwoChars = result.Duration[..2];
             int duration = Int32.Parse(firstTwoChars);
-            var charge = "£" + duration * 0.4;
+            var charge = "£" + duration * 1.2;
+
+            // add £ in th view and also gabriels needs a way to chnage the multiplyer and consider thrshold / deals, create bands - put everything in config
 
             var booking1 = new Booking
             {
@@ -107,7 +111,8 @@ namespace DeepCycles.Repository
                 PostCode = booking.PostCode,
                 BookingTitle = booking.BookingTitle,
                 BookingDescription = booking.BookingDescription,
-                CollectionAndDropOffCharge = charge
+                CollectionAndDropOffCharge = charge,
+                CollectionTime = booking.CollectionTime,
             };
                 return booking1;
         }

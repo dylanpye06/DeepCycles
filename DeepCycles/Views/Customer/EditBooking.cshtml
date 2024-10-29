@@ -47,6 +47,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Collection Time</label>
+            <input type="text" id="CollectionTime" class="form-control" asp-for="CollectionTime" />
+        </div>
+
+        <div class="mb-3">
             <div class="d-flex">
                 <button type="submit" class="btn btn-success" asp-route-id="@Model.BookingId">Save Changes</button>
 

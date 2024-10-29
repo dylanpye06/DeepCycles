@@ -58,5 +58,50 @@ namespace DeepCycles.Repository
             return null;
         }
 
+        public async Task<IEnumerable<HandmadeBikes>> GetAllBikes()
+        {
+            return await databaseLink.HandmadeBikes.ToListAsync();
+        }
+
+        public async Task<HandmadeBikes> AddBike(HandmadeBikes handmadeBikes)
+        {
+            await databaseLink.HandmadeBikes.AddAsync(handmadeBikes);
+            await databaseLink.SaveChangesAsync();
+            return handmadeBikes;
+        }
+
+        public async Task<HandmadeBikes> EditBike(HandmadeBikes handmadeBikes)
+        {
+            var checkBike = await databaseLink.HandmadeBikes.FindAsync(handmadeBikes.BikeId);
+
+            if (checkBike != null)
+            {
+                checkBike.BikeName = handmadeBikes.BikeName;
+                checkBike.BikeDescription = handmadeBikes.BikeDescription;
+                checkBike.Price = handmadeBikes.Price;
+
+                await databaseLink.SaveChangesAsync();
+                return checkBike;
+            }
+            return null;
+        }
+
+        public async Task<HandmadeBikes> DeleteBike(Guid Id)
+        {
+            var existingBike = await databaseLink.HandmadeBikes.FindAsync(Id);
+
+            if (existingBike != null)
+            {
+                databaseLink.HandmadeBikes.Remove(existingBike);
+                await databaseLink.SaveChangesAsync();
+                return existingBike;
+            }
+            return null;
+        }
+
+        public async Task<HandmadeBikes> GetBike(Guid Id)
+        {
+            return await databaseLink.HandmadeBikes.Where(x => x.BikeId == Id).FirstOrDefaultAsync();
+        }
     }
 }
