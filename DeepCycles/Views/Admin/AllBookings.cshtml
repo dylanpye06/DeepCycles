@@ -3,42 +3,43 @@
 @{
 }
 
-<div class="bg-secondary bg-opacity-25 py-2 fw-bold">
+<div class="bg-black py-2 fw-bold">
     <div class="container">
-        <h1>View All Bookings</h1>
+        <h1 class="text-light">View All Bookings</h1>
     </div>
 </div>
 
 <div class="container py-5">
     @if (Model != null && Model.Any())
     {
-        <table class="table">
+        <table class="table" style="background-color: black; color: white; border-collapse: collapse;">
             <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Post Code</th>
-                    <th>Booking Title</th>
-                    <th>Booking Description</th>
-                    <th>Collection Time</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                    <th> </th>
+                <tr style="border-bottom: 1px solid white;">
+                    <th style="border-right: 1px solid white;">Full Name</th>
+                    <th style="border-right: 1px solid white;">Email</th>
+                    <th style="border-right: 1px solid white;">Phone Number</th>
+                    <th style="border-right: 1px solid white;">Post Code</th>
+                    <th style="border-right: 1px solid white;">Booking Title</th>
+                    <th style="border-right: 1px solid white;">Booking Description</th>
+                    <th style="border-right: 1px solid white;">Collection And Drop Off Charge</th>
+                    <th style="border-right: 1px solid white;">Collection Time</th>
+                    <th style="border-right: 1px solid white;">Delete</th>
+                    <th style="border-right: 1px solid white;">Edit</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var booking in Model)
                 {
                     <tr>
-                        <td>@booking.FullName</td>
-                        <td>@booking.Email</td>
-                        <td>@booking.PhoneNumber</td>
-                        <td>@booking.PostCode</td>
-                        <td>@booking.BookingTitle</td>
-                        <td>@booking.BookingDescription</td>
-                        <td>@booking.CollectionTime</td>
-                        <td>
+                        <td style="border-right: 1px solid white;">@booking.FullName</td>
+                        <td style="border-right: 1px solid white;">@booking.Email</td>
+                        <td style="border-right: 1px solid white;">@booking.PhoneNumber</td>
+                        <td style="border-right: 1px solid white;">@booking.PostCode</td>
+                        <td style="border-right: 1px solid white;">@booking.BookingTitle</td>
+                        <td style="border-right: 1px solid white;">@booking.BookingDescription</td>
+                        <td style="border-right: 1px solid white;">@booking.CollectionAndDropOffCharge</td>
+                        <td style="border-right: 1px solid white;">@booking.CollectionTime</td>
+                        <td style="border-right: 1px solid white;">
                             <form asp-action="DeleteBooking" method="post">
                                 <input type="hidden" name="BookingId" value="@booking.BookingId" />
                                 <button type="submit" class="btn btn-danger">
@@ -46,7 +47,7 @@
                                 </button>
                             </form>
                         </td>
-                        <td>
+                        <td style="border-right: 1px solid white;">
                             <a asp-area="" asp-controller="Admin" asp-action="EditBookings"
                                asp-route-id="@booking.BookingId">Edit</a>
                         </td>
@@ -54,15 +55,25 @@
                 }
             </tbody>
         </table>
+
+        <div class="container py-5">
+            <div class="mb-3">
+                <a class="btn btn-success" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
+            </div>
+        </div>
     }
     else
     {
-        <p> No Bookings Found </p>
-    }
-</div>
+        <div class="bg-black py-2 fw-bold">
+            <div class="container">
+                <h1 class="text-light">You Do Not Have Any Current Bookings</h1>
+            </div>
+        </div>
 
-<div class="container py-5">
-    <div class="mb-3">
-        <a class="btn btn-success" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
-    </div>
+        <div class="container py-5">
+            <div class="mb-3">
+                <a class="btn btn-success" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
+            </div>
+        </div>
+    }
 </div>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeepCycles.Models.Domain
 {
@@ -9,5 +10,9 @@ namespace DeepCycles.Models.Domain
         public required string BikeName { get; set; }
         public required string BikeDescription { get; set; }
         public required string Price { get; set; }
+        public string? DisplayImagePath { get; set; }
+
+        [NotMapped]
+        public required IFormFile DisplayImage { get; set; }
     }
 }

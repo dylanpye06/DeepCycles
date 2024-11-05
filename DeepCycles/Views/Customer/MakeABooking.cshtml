@@ -3,10 +3,10 @@
 }
     @if(Model == null)
     {
-        <div class="bg-secondary bg-opacity-25 py-2 fw-bold">
+        <div class="bg-black py-2 fw-bold">
             <div class="container">
-                <h1>Make A Booking</h1>
-                <p>All Boxes Must Be Completed In Order To Book Job</p>
+            <h1 class="text-light">Make A Booking</h1>
+            <p class="text-light">All Boxes Must Be Completed In Order To Book Job</p>
             </div>
         </div>
 
@@ -35,26 +35,34 @@
 
                 <div class="mb-3">
                     <label class="form-label">Booking Title</label>
-                    <p>(For Example Bike Make And Model + Brake Bleed)</p>
+                        <div>
+                            <p class="text-light">For Example Bike Make And Model + Brake Bleed</p>
+                        </div>
                     <input type="text" class="form-control" id="BookingTitle" asp-for="BookingTitle" />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Booking Description</label>
-                    <p>(Any Information Or Notes The Mechanic Should Be Aware Of)</p>
+                        <div>
+                            <p class="text-light">Any Information Or Notes The Mechanic Should Be Aware Of</p>
+                        </div>
                     <input type="text" class="form-control" id="BookingDescription" asp-for="BookingDescription" />
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Collection And Drop Off Charge</label>
-                    <p text-danger>This will be calculated once you submit your form</p>
-                <input type="text" class="form-control" id="CollectionAndDropOffCharge" asp-for="CollectionAndDropOffCharge" readonly/>
+                        <div>
+                            <p class="text-light">This will be calculated once you submit your form</p>
+                        </div>
+                    <input type="text" class="form-control" id="CollectionAndDropOffCharge" asp-for="CollectionAndDropOffCharge" readonly/>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Collection Date And Time</label>
-                    <p>(Please Suggest Up To 3 Times That Work For You :) )</p>
-                    <input type="text" id="CollectionTime" class="form-control" asp-for="CollectionTime" />
+                        <div>
+                            <p class="text-light">Please Suggest Up To 3 Times That Work For You :)</p>
+                        </div>
+                        <input type="text" id="CollectionTime" class="form-control" asp-for="CollectionTime" />
                 </div>
 
                 <div class="mb-3">
@@ -70,9 +78,9 @@
 
     else
     {
-    <div class="bg-secondary bg-opacity-25 py-2 fw-bold">
+    <div class="bg-black py-2 fw-bold">
         <div class="container">
-            <h1>Please Ensure All Boxes Are Filled Out Before You Make A Booking</h1>
+            <h1 class="text-light">Please Ensure All Boxes Are Filled Out Before You Make A Booking</h1>
         </div>
     </div>
 
@@ -101,14 +109,34 @@
 
             <div class="mb-3">
                 <label class="form-label">Booking Title</label>
-                <p>(For Example Bike Make And Model + Brake Bleed)</p>
+                <div>
+                    <p class="text-light">For Example Bike Make And Model + Brake Bleed</p>
+                </div>
                 <input type="text" class="form-control" id="BookingTitle" asp-for="BookingTitle" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Booking Description</label>
-                <p>(Any Information Or Notes The Mechanic Should Be Aware Of)</p>
+                <div>
+                    <p class="text-light">Any Information Or Notes The Mechanic Should Be Aware Of</p>
+                </div>
                 <input type="text" class="form-control" id="BookingDescription" asp-for="BookingDescription" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Collection And Drop Off Charge</label>
+                <div>
+                    <p class="text-light">This will be calculated once you submit your form</p>
+                </div>
+                <input type="text" class="form-control" id="CollectionAndDropOffCharge" asp-for="CollectionAndDropOffCharge" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Collection Date And Time</label>
+                <div>
+                    <p class="text-light">Please Suggest Up To 3 Times That Work For You :)</p>
+                </div>
+                <input type="text" id="CollectionTime" class="form-control" asp-for="CollectionTime" />
             </div>
 
             <div class="mb-3">

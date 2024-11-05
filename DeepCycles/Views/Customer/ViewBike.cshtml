@@ -1,1 +1,29 @@
-﻿
+﻿@model DeepCycles.Models.Domain.HandmadeBikes
+
+<div class="bg-black container py-5">
+    <h2 class="text-light text-center mb-4">@Model.BikeName</h2>
+
+    <div class="card mb-4">
+        @if (!string.IsNullOrEmpty(Model.DisplayImagePath))
+        {
+            <img src="@Model.DisplayImagePath" class="card-img-top" alt="@Model.BikeName" style="height: 300px; object-fit: cover;" />
+        }
+        else
+        {
+            <img src="~/images/default-bike.png" class="card-img-top" alt="Default Bike Image" style="height: 300px; object-fit: cover;" />
+        }
+
+        <div class="card-body">
+            <p class="card-text">@Model.BikeDescription</p>
+
+            <p class="card-text text-muted">Price: $@Model.Price</p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <form asp-controller="Customer" asp-action="ViewBike" method="post" class="d-inline">
+            <button type="submit" class="btn btn-success">Back</button>
+        </form>
+    </div>
+</div>
+

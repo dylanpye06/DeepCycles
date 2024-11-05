@@ -1,7 +1,10 @@
 
 using DeepCycles.Data;
 using DeepCycles.Repository;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using System.Net.Mail;
 
 
 
@@ -36,6 +39,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=HomePage}/{id?}");
+
+app.UseStaticFiles();
 
 app.Run();
 

@@ -35,16 +35,21 @@ namespace DeepCycles.Controllers
                 CollectionTime = makeABookingRequest.CollectionTime,
             };
             // TODO can we tidy up this code?
-            if (booking.FullName != null && booking.Email != null
-            && booking.PostCode != null && booking.BookingTitle != null && booking.BookingDescription != null)
+            if (booking.FullName != null && booking.Email != null && booking.PhoneNumber != null && booking.PostCode != null && booking.BookingTitle != null
+                && booking.BookingDescription != null && booking.BookingTitle != null && booking.BookingDescription != null && booking.CollectionTime != null)
 
             // use tool given to check all boxes are valid https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0
 
             {
+                booking.BookingId = Guid.NewGuid();
+
                 //caching - take look at Dictionary<string,string> for instance
 
                 var booking1 = await customerRepository.DistanceMatrixResult(booking);
-                await customerRepository.MakeABooking(booking1);
+ //               await customerRepository.SaveBooking(booking1);
+
+                // Id only gets given to the booking once it has been uploaded and saved to the database
+                // may need to write a method to give it an id before hand as only want to save to the databse on the filan submit button
                 return RedirectToAction("ViewBooking", booking1);
             }
             else return View("MakeABooking", makeABookingRequest);
@@ -53,17 +58,15 @@ namespace DeepCycles.Controllers
 
         [HttpGet]
         [ActionName("ViewBooking")]
-        public async Task<IActionResult> ViewBooking(Guid BookingId)
+        public IActionResult ViewBooking(Booking booking)
         {
-            var foundBooking = await customerRepository.GetBookingASync(BookingId);
-            return View(foundBooking);
+ //           var foundBooking = await customerRepository.GetBookingASync(BookingId);
+            return View(booking);
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditBooking(Guid Id)
+        public IActionResult EditBooking([Bind] Booking booking)
         {
-            var booking = await customerRepository.GetBookingASync(Id);
-
             if (booking != null)
             {
                 var editBookingRequest = new EditBookingRequest
@@ -75,6 +78,7 @@ namespace DeepCycles.Controllers
                     PostCode = booking.PostCode,
                     BookingTitle = booking.BookingTitle,
                     BookingDescription = booking.BookingDescription,
+                    CollectionAndDropOffCharge = booking.CollectionAndDropOffCharge,
                     CollectionTime = booking.CollectionTime,
                 };
                 return View(editBookingRequest);
@@ -84,6 +88,7 @@ namespace DeepCycles.Controllers
                 return View("Error");
             }
         }
+
 
         [HttpPost]
         [ActionName("EditBooking")]
@@ -98,10 +103,19 @@ namespace DeepCycles.Controllers
                 PostCode = editBookingRequest.PostCode,
                 BookingTitle = editBookingRequest.BookingTitle,
                 BookingDescription = editBookingRequest.BookingDescription,
+                CollectionAndDropOffCharge = editBookingRequest.CollectionAndDropOffCharge,
                 CollectionTime = editBookingRequest.CollectionTime
             };
             await customerRepository.EditBooking(booking);
             return RedirectToAction("ViewBooking", booking);
+        }
+
+        [HttpPost]
+        [ActionName("SaveBooking")]
+        public async Task<IActionResult> SaveBooking(Booking booking)
+        {
+            await customerRepository.SaveBooking(booking);
+            return View("HomePage");
         }
 
         [HttpPost]
@@ -122,29 +136,27 @@ namespace DeepCycles.Controllers
             // show success message
         }
 
-        [HttpGet]
-        public IActionResult HandmadeBikes()
+        [HttpPost]
+        [ActionName("AllBikes")]
+        public async Task<IActionResult> AllBikes()
         {
-            return View("AllBikes");
+            var allBikes = await customerRepository.GetAllBikes();
+            return View(allBikes);
+        }
 
-           // we need a new table i the databse where gabriel can upload his owen bikes to the datasbaase and then this view must display all names of the bike E.G- Enduro 29er medium
-           // and then ech one has a link that opens another view with then shows all information and pictures
+        [HttpGet]
+        public async Task<IActionResult> ViewBike(Guid BikeId)
+        {
+            var bike = await customerRepository.GetBike(BikeId);
+            return View(bike);
         }
 
         [HttpPost]
-        public IActionResult HandmadeBikes(HandmadeBikes handmadeBikes)
+        [ActionName("ViewBike")]
+        public async Task<IActionResult> ViewBike()
         {
-            return View("AllBikes");
-
-            // we need to put the whole bike databsase table into a list which cn be accessed from the view / method
-
-            // each link with represent a single Id in the list of bikes
-
-            // in the next View we will write something like 
-
-            // foreach(bike in list)
-                
-                // dispay this...........
+            var allBikes = await customerRepository.GetAllBikes();
+            return View("AllBikes", allBikes);
         }
     }
 }

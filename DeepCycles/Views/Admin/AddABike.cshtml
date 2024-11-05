@@ -1,38 +1,42 @@
-﻿
-@model DeepCycles.Models.ViewModels.AddBikeRequest
-@{
-}
-        <div class="bg-secondary bg-opacity-25 py-2 fw-bold">
-            <div class="container">
-                <h1>Add A Bike</h1>
-                <p>All Boxes Must Be Completed In Order TO Add A Bike</p>
+﻿@model DeepCycles.Models.ViewModels.AddBikeRequest
+
+<div class="bg-black py-2 fw-bold">
+    <div class="container">
+        <h1 class="text-light">Add A Bike</h1>
+        <p class="text-light">All Boxes Must Be Completed In Order TO Add A Bike</p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Bike Name</label>
+            <input type="text" class="form-control" id="BikeName" asp-for="BikeName" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Bike Description</label>
+            <input type="text" class="form-control" id="BikeDescription" asp-for="BikeDescription" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input type="text" class="form-control" id="Price" asp-for="Price" />
+        </div>
+
+        <div class="mb-3">
+            <label for="DisplayImage" class="form-label">Upload Display Image</label>
+            <input type="file" class="form-control" id="DisplayImage" asp-for="DisplayImage" accept="image/*" />
+        </div>
+
+        <div class="mb-3">
+            <div class="d-flex">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a class="btn btn-success ms-md-3 btn btn-danger" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
             </div>
         </div>
+    </form>
+</div>
 
-        <div class="container py-5">
-            <form method="post">
 
-                <div class="mb-3">
-                    <label class="form-label">Bike Name</label>
-                    <input type="text" class="form-control" id="BikeName" asp-for="BikeName" />
-                </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Bike Description</label>
-                    <input type="text" class="form-control" id="BikeDescription" asp-for="BikeDescription" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Price</label>
-                    <input type="text" class="form-control" id="Price" asp-for="Price" />
-                </div>
-
-                <div class="mb-3">
-                    <div class="d-flex">
-                        <button type="submit" class="btn btn-success">Submit</button>
-
-                        <a class="btn btn-success ms-md-3 btn btn-danger" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
-                    </div>
-                </div>
-            </form>
-        </div>

@@ -1,60 +1,46 @@
-﻿@model List<DeepCycles.Models.Domain.HandmadeBikes>
+﻿@model IEnumerable<DeepCycles.Models.Domain.HandmadeBikes>
 
-@{
-}
+<div class="bg-black container py-5">
+    <h1 class="text-center mb-4 text-light">All Bikes</h1>
 
-<div class="bg-secondary bg-opacity-25 py-2 fw-bold">
-    <div class="container">
-        <h1>View All Bikes</h1>
-    </div>
-</div>
+    <div class="row">
+        @foreach (var bike in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <!-- Display Image -->
+                    <img src="@bike.DisplayImagePath" class="card-img-top" alt="@bike.BikeName" style="height: 200px; object-fit: cover;" />
 
-<div class="container py-5">
-    @if (Model != null && Model.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>BikeName</th>
-                    <th>Bike Description</th>
-                    <th>Price</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var handmadeBike in Model)
-                {
-                    <tr>
-                        <td>@handmadeBike.BikeName</td>
-                        <td>@handmadeBike.BikeDescription</td>
-                        <td>@handmadeBike.Price</td>
-                        <td>
-                            <form asp-action="DeleteBike" method="post">
-                                <input type="hidden" name="BikeId" value="@handmadeBike.BikeId" />
-                                <button type="submit" class="btn btn-danger">
-                                    Delete
-                                </button>
+                    <div class="card-body">
+                        <!-- Bike Name -->
+                        <h5 class="card-title">@bike.BikeName</h5>
+
+                        <!-- Bike Description -->
+                        <p class="card-text">@bike.BikeDescription</p>
+
+                        <!-- Bike Price -->
+                        <p class="card-text text-muted">Price: $@bike.Price</p>
+
+                        <div class="d-flex justify-content-between">
+                            <!-- Edit Button -->
+                            <a asp-controller="Admin" asp-action="EditBikes" asp-route-id="@bike.BikeId" class="btn btn-success">Edit</a>
+
+                            <!-- Delete Button -->
+                            <form asp-controller="Admin" asp-action="DeleteBike" method="post" class="d-inline">
+                                <input type="hidden" name="BikeId" value="@bike.BikeId" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
-                        </td>
-                        <td>
-                            <a asp-area="" asp-controller="Admin" asp-action="EditBikes"
-                               asp-route-id="@handmadeBike.BikeId">Edit</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p> No Bookings Found </p>
-    }
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
 
-<div class="container py-5">
-    <div class="mb-3">
-        <a class="btn btn-success" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
+        <div class="mb-3">
+            <div class="d-flex">
+                <a class="btn btn-success ms-md-3 btn btn-danger" asp-area="" asp-controller="Admin" asp-action="AdminPage">Back</a>
+            </div>
+        </div>
+
     </div>
 </div>

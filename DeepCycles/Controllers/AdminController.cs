@@ -51,7 +51,6 @@ namespace DeepCycles.Controllers
         {
             var allBookings = await adminRepository.GetAllBookings();
             return View(allBookings);
-
             /// doesnt need to edit all or see all the information but needs a place to cpture any notes or anthing important ect pick up time
         }
 
@@ -138,6 +137,8 @@ namespace DeepCycles.Controllers
                     BikeName = foundBike.BikeName,
                     BikeDescription = foundBike.BikeDescription,
                     Price = foundBike.Price,
+                    DisplayImage = foundBike.DisplayImage,
+                    DisplayImagePath = foundBike.DisplayImagePath,
                 };
                 return View(editHandmadeBikeRequest);
             }
@@ -156,6 +157,8 @@ namespace DeepCycles.Controllers
                 BikeName = editHandmadeBikeRequest.BikeName,
                 BikeDescription = editHandmadeBikeRequest.BikeDescription,
                 Price = editHandmadeBikeRequest.Price,
+                DisplayImage = editHandmadeBikeRequest.DisplayImage,
+                DisplayImagePath =editHandmadeBikeRequest.DisplayImagePath,
             };
             await adminRepository.EditBike(handmadeBikes);
             var allBikes = await adminRepository.GetAllBikes();
@@ -163,26 +166,50 @@ namespace DeepCycles.Controllers
         }
 
         [HttpGet]
-        [ActionName("AddABike")]
         public IActionResult AddABike()
-        { return View("AddABike"); }
+        {
+            return View();
+        }
 
         [HttpPost]
-        public async Task<IActionResult> AddABike(AddBikeRequest addHandMadeBikeRequest)
+        [ActionName("AddABike")]
+        public async Task<IActionResult> AddBike(AddBikeRequest addBikeRequest)
         {
             var handmadeBike = new HandmadeBikes
             {
-                BikeName = addHandMadeBikeRequest.BikeName,
-                BikeDescription = addHandMadeBikeRequest.BikeDescription,
-                Price = addHandMadeBikeRequest.Price,
+                BikeId = addBikeRequest.BikeId,
+                BikeName = addBikeRequest.BikeName,
+                BikeDescription = addBikeRequest.BikeDescription,
+                Price = addBikeRequest.Price,
+                DisplayImage = addBikeRequest.DisplayImage,
+                DisplayImagePath = addBikeRequest.DisplayImagePath,
             };
-            if (handmadeBike.BikeName != null && handmadeBike.BikeDescription != null && handmadeBike.Price != null)
+
+            if (handmadeBike.BikeName == null && handmadeBike.BikeDescription == null && handmadeBike.Price == null)
             {
+                return View("AddABike", addBikeRequest);
+            }
+            else
+            {
+                if (addBikeRequest.DisplayImage != null && addBikeRequest.DisplayImage.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    var uniqueFileName = $"{Guid.NewGuid()}_{addBikeRequest.DisplayImage.FileName}";
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await addBikeRequest.DisplayImage.CopyToAsync(fileStream);
+                    }
+                    handmadeBike.DisplayImagePath = "/images/" + uniqueFileName;
+                }
+
                 await adminRepository.AddBike(handmadeBike);
                 var allBikes = await adminRepository.GetAllBikes();
                 return View("AllBikes", allBikes);
             }
-            else return View("AddABike", addHandMadeBikeRequest);
         }
 
         [HttpPost]

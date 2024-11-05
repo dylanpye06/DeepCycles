@@ -11,7 +11,7 @@ namespace DeepCycles.Repository
         {
             return await databaseLink.Bookings.ToListAsync();
         }
-        public async Task<Booking> DeleteEditBooking(Guid Id)
+        public async Task<Booking?> DeleteEditBooking(Guid Id)
         {
             var existingBooking = await databaseLink.Bookings.FindAsync(Id);
             if (existingBooking != null)
@@ -22,12 +22,12 @@ namespace DeepCycles.Repository
             }
             return null;
         }
-        public async Task<Booking> GetBookingASync(Guid Id)
+        public async Task<Booking?> GetBookingASync(Guid Id)
         {
             return await databaseLink.Bookings.Where(x => x.BookingId == Id).FirstOrDefaultAsync();
         }
 
-        public async Task<Booking> EditBooking(Booking booking)
+        public async Task<Booking?> EditBooking(Booking booking)
         {
             var checkBooking = await databaseLink.Bookings.FindAsync(booking.BookingId);
 
@@ -45,7 +45,7 @@ namespace DeepCycles.Repository
             }
             return null;
         }
-        public async Task<Booking> DeleteBooking(Guid id)
+        public async Task<Booking?> DeleteBooking(Guid id)
         {
             var existingBooking = await databaseLink.Bookings.FindAsync(id);
 
@@ -70,7 +70,7 @@ namespace DeepCycles.Repository
             return handmadeBikes;
         }
 
-        public async Task<HandmadeBikes> EditBike(HandmadeBikes handmadeBikes)
+        public async Task<HandmadeBikes?> EditBike(HandmadeBikes handmadeBikes)
         {
             var checkBike = await databaseLink.HandmadeBikes.FindAsync(handmadeBikes.BikeId);
 
@@ -79,6 +79,8 @@ namespace DeepCycles.Repository
                 checkBike.BikeName = handmadeBikes.BikeName;
                 checkBike.BikeDescription = handmadeBikes.BikeDescription;
                 checkBike.Price = handmadeBikes.Price;
+                checkBike.DisplayImage = handmadeBikes.DisplayImage;
+                checkBike.DisplayImagePath = handmadeBikes.DisplayImagePath;
 
                 await databaseLink.SaveChangesAsync();
                 return checkBike;
@@ -86,7 +88,7 @@ namespace DeepCycles.Repository
             return null;
         }
 
-        public async Task<HandmadeBikes> DeleteBike(Guid Id)
+        public async Task<HandmadeBikes?> DeleteBike(Guid Id)
         {
             var existingBike = await databaseLink.HandmadeBikes.FindAsync(Id);
 
@@ -99,7 +101,7 @@ namespace DeepCycles.Repository
             return null;
         }
 
-        public async Task<HandmadeBikes> GetBike(Guid Id)
+        public async Task<HandmadeBikes?> GetBike(Guid Id)
         {
             return await databaseLink.HandmadeBikes.Where(x => x.BikeId == Id).FirstOrDefaultAsync();
         }

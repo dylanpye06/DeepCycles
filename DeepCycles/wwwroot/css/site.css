@@ -18,5 +18,34 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background-image: url('/images/DCbackground1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.form-label {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header, main {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.container {
+    margin-top: 0 !important;
 }
